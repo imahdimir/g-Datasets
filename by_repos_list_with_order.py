@@ -91,7 +91,7 @@ def do_the_rest(df) :
   drp = GithubData(dlist_url)
   drp.clone()
 
-  cur_repo_url = gitburl + drp.user_name + '/' + 'gov-' + drp.repo_name
+  cur_repo_url = gitburl + drp.user_name + '/' + 'g-' + drp.repo_name
 
   rdmefp = drp.local_path / 'README.md'
 
