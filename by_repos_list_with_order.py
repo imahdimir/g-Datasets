@@ -1,3 +1,7 @@
+"""
+
+  """
+
 ##
 
 
@@ -40,6 +44,16 @@ async def read_main(urls) :
 def get_dataset_name_from_url(url) :
   repon = url.split('/')[-1]
   return repon.split('d-' , 1)[1]
+
+def get_token_local_or_datalore() :
+  tokfp = '/Users/mahdi/Dropbox/tok.txt'
+  tok = mu.get_tok_if_accessible(tokfp)
+  if tok :
+    return tok
+  tokfp = '/data/workspace_files/tok.txt'
+  tok = mu.get_tok_if_accessible(tokfp)
+  if tok :
+    return tok
 
 def do_the_rest(df) :
   _df = df[[url]]
@@ -98,8 +112,7 @@ def do_the_rest(df) :
   with open(rdmefp , 'w') as fi :
     fi.write(rdme)
 
-  tokfp = '/Users/mahdi/Dropbox/tok.txt'
-  tok = mu.get_tok_if_accessible(tokfp)
+  tok = get_token_local_or_datalore()
 
   msg = 'updated README.md'
   msg += ' by: ' + cur_repo_url
@@ -109,19 +122,19 @@ def do_the_rest(df) :
   drp.rmdir()
 
 def main() :
+
   pass
 
   ##
-
-
   df = pd.read_excel('repos-list.xlsx')
-
   ##
   do_the_rest(df)
 
   ##
 
   ##
+
+##
 
 ##
 
