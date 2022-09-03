@@ -13,12 +13,13 @@ from by_repos_list_with_order import do_the_rest
 from by_repos_list_with_order import gitburl
 
 
+url = 'https://github.com/stars/imahdimir/lists/datasets'
+
 def main() :
 
   pass
 
   ##
-  url = 'https://github.com/stars/imahdimir/lists/datasets'
   resp = requests.get(url)
   ##
   soup = BeautifulSoup(resp.text , "html.parser")
