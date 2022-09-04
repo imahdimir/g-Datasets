@@ -1,8 +1,9 @@
-pandas~=1.4.3
-requests~=2.28.1
-bs4~=0.0.1
-beautifulsoup4~=4.11.1
-githubdata~=3.0
-mirutil~=3.3
-aiohttp~=3.8.1
-tabulate~=0.8.10
+pandas
+requests
+bs4
+beautifulsoup4
+githubdata==6.0
+mirutil
+aiohttp
+tabulate
+openpyxl
