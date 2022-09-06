@@ -9,9 +9,10 @@ import pandas as pd
 import requests
 from bs4 import BeautifulSoup
 from githubdata import GithubData
-from mirutil import async_requests as areq
+from mirutil.async_requests import get_reps_jsons_async as fu0
 from mirutil import utils as mu
 from mirutil.df_utils import save_df_as_a_nice_xl as snxl
+from mirutil.utils import ret_clusters_indices
 
 
 class Url :
@@ -46,7 +47,7 @@ def read_desc_in_meta_jsn(jsn) :
 
 async def read_main(urls) :
     fu = partial(
-            areq.get_reps_jsons_async ,
+            fu0 ,
             trust_env = False ,
             params = None ,
             verify_ssl = True ,
@@ -89,12 +90,13 @@ def main() :
     ##
     df1 = df1[[cn.relurl]]
     ##
-    df1[cn.url] = cte.github_base_url + df1[cn.relurl]
-    df1[cn.meturl] = cte.raw_github_url + df1[cn.relurl] + '/main/META.json'
+    df1[cn.url] = cte.github_base_url + df1[cn.relurl].str[1 :]
+    df1[cn.meturl] = cte.raw_github_url + df1[cn.relurl].str[
+                                          1 :] + '/main/META.json'
     ##
     df1 = df1[[cn.url , cn.meturl]]
     ##
-    cis = mu.return_clusters_indices(df1)
+    cis = ret_clusters_indices(df1)
     ##
     for se in cis :
         si = se[0]
@@ -108,6 +110,7 @@ def main() :
         out = asyncio.run(read_main(urls))
 
         df1.loc[inds , cn.desc] = out
+
     ##
     df1[cn.dataset] = df1[cn.url].apply(get_dataset_name_from_url)
     ##
