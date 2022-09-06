@@ -1,7 +1,7 @@
 """
 
   """
-##
+
 import asyncio
 from functools import partial
 
@@ -45,11 +45,13 @@ def read_desc_in_meta_jsn(jsn) :
         return None
 
 async def read_main(urls) :
-    fu = partial(areq.get_reps_jsons_async ,
-                 trust_env = False ,
-                 params = None ,
-                 verify_ssl = True ,
-                 content_type = None)
+    fu = partial(
+            areq.get_reps_jsons_async ,
+            trust_env = False ,
+            params = None ,
+            verify_ssl = True ,
+            content_type = None
+            )
     jsns = await fu(urls)
     out = [read_desc_in_meta_jsn(x) for x in jsns]
     return out
@@ -59,7 +61,6 @@ def get_dataset_name_from_url(url) :
     return repon.split('d-' , 1)[1]
 
 def main() :
-
     pass
 
     ##
@@ -132,22 +133,22 @@ def main() :
     rdme = '# Datasets List \n'
     rdme += df1.to_markdown()
     ##
-    rp_targ = GithubData(url.targ)
-    rp_targ.clone()
+    gd_targ = GithubData(url.targ)
+    gd_targ.overwriting_clone()
     ##
-    rdmefp = rp_targ.local_path / 'README.md'
+    rdmefp = gd_targ.local_path / 'README.md'
     with open(rdmefp , 'w') as fi :
         fi.write(rdme)
     ##
-    fp = rp_targ.local_path / 'list.xlsx'
+    fp = gd_targ.local_path / 'list.xlsx'
     snxl(df2 , fp)
     ##
     msg = 'updated README.md'
     msg += ' by: ' + url.cur
     ##
-    rp_targ.commit_and_push(msg)
+    gd_targ.commit_and_push(msg)
     ##
-    rp_targ.rmdir()
+    gd_targ.rmdir()
 
     ##
 
