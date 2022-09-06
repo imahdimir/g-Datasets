@@ -10,7 +10,6 @@ import requests
 from bs4 import BeautifulSoup
 from githubdata import GithubData
 from mirutil.async_requests import get_reps_jsons_async as fu0
-from mirutil import utils as mu
 from mirutil.df_utils import save_df_as_a_nice_xl as snxl
 from mirutil.utils import ret_clusters_indices
 
